@@ -2263,6 +2263,28 @@ function Fatality:CreateDropdown(Parent: Frame, Default: string | {[string]: boo
 		change_default = function(v)
 			Default = v;
 		end,
+		update_visuals = function()
+			for i, v in next, ScrollingFrame:GetChildren() do
+				if v:IsA('TextButton') then
+					if Multiplier then
+						if (typeof(Default) == 'table' and (Default[v.Text] or table.find(Default,v.Text))) or Default == v.Text then
+							v.TextColor3 = Fatality.Colors.Main;
+							Selected[v.Text] = true
+						else
+							v.TextColor3 = Color3.fromRGB(255, 255, 255);
+							Selected[v.Text] = false
+						end
+					else
+						if v.Text == Default then
+							v.TextColor3 = Fatality.Colors.Main;
+							Selected = v.Text;
+						else
+							v.TextColor3 = Color3.fromRGB(255, 255, 255);
+						end;
+					end
+				end
+			end
+		end,
 		refresh = function()
 			for i,v in next , ScrollingFrame:GetChildren() do
 				if v:IsA('TextButton') then
@@ -3279,6 +3301,7 @@ function Fatality:CreateElements(Parent : Frame , ZIndex : number , Event : Bind
 				Config.Default = def;
 				Value_Text.Text = DataParser(Config.Default);
 				res:change_default(Config.Default);
+				res:update_visuals();
 
 				Config.Callback(def);
 			end,

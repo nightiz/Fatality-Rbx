@@ -1,3 +1,5 @@
+> This is a fork of [4lpaca-pin/Fatality](https://github.com/4lpaca-pin/Fatality)
+
 # Fatality
 Fatality.Win UI for Roblox - Dark Theme
 
